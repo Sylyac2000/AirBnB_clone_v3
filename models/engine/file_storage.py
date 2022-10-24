@@ -39,9 +39,6 @@ class FileStorage:
         if cls is not None:
             new_dict = {}
             for key, value in self.__objects.items():
-                print(value)
-                print(value.id)
-                #break
                 if cls == value.__class__ or cls == value.__class__.__name__:
                     if value.id == id:
                         return value
@@ -49,7 +46,7 @@ class FileStorage:
 
     def count(self, cls=None):
         """count the number of objects in storage """
-        nbre = 0;
+        nbre = 0
         if cls is not None:
             new_dict = {}
             for key, value in self.__objects.items():
@@ -82,7 +79,7 @@ class FileStorage:
                 jo = json.load(f)
             for key in jo:
                 self.__objects[key] = classes[jo[key]["__class__"]](**jo[key])
-        except:
+        except Exception:
             pass
 
     def delete(self, obj=None):
