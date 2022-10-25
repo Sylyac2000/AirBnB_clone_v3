@@ -1,7 +1,8 @@
 #!/usr/bin/python3
+""" Flask api routes """
+
 from api.v1.views import app_views
 from flask import jsonify
-
 from models.amenity import Amenity
 from models.city import City
 from models.place import Place
