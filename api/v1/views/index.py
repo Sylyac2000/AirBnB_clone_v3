@@ -12,17 +12,14 @@ from models import storage
 
 @app_views.route("/status")
 def status():
-    '''
-        return JSON of OK status
-    '''
-    return jsonify({'status': 'OK'})
+    """ return JSON of OK status """
+    status = {"status": "OK"}
+    return jsonify(status)
 
 
 @app_views.route("/stats")
-def storage_counts():
-    '''
-        return counts of all classes in storage
-    '''
+def count():
+    """ return counts of all classes in storage """
     obj_counts = {
         "amenities": storage.count("Amenity"),
         "cities": storage.count("City"),
