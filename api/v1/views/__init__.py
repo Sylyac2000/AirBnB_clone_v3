@@ -11,7 +11,9 @@ from models.place import Place
 from models.review import Review"""
 
 """ import flask views """
-from api.v1.views.index import *
+
+
+from api.v1.views.index import *  # noqa
 """ from api.v1.views.states import *
 from api.v1.views.cities import *
 from api.v1.views.amenities import *
