@@ -15,12 +15,14 @@ app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 app.register_blueprint(app_views)
 cors = CORS(app, resources={r"/*": {"origins": "0.0.0.0"}})
 
+
 @app.teardown_appcontext
 def close_db(error):
     """ Close Storage """
     storage.close()
 
-#Swagger(app)
+# Swagger(app)
+
 
 if __name__ == '__main__':
     """ Main  """
