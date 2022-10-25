@@ -8,7 +8,6 @@ from api.v1.views import app_views
 from flask import Flask,  jsonify, render_template, make_response
 from flask_cors import CORS
 from os import environ
-from flask_swagger import swagger
 
 app = Flask(__name__)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
@@ -20,8 +19,6 @@ cors = CORS(app, resources={r"/*": {"origins": "0.0.0.0"}})
 def close_db(error):
     """ Close Storage """
     storage.close()
-
-# Swagger(app)
 
 
 if __name__ == '__main__':
