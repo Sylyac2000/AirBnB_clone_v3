@@ -12,6 +12,7 @@ app = Flask(__name__)
 app.register_blueprint(app_views)
 CORS(app, origins="0.0.0.0")
 
+
 @app.teardown_appcontext
 def tear_down(self):
     """ close query after each session """
@@ -20,7 +21,7 @@ def tear_down(self):
 
 @app.errorhandler(404)
 def not_found(error):
-    """ return JSON formatted 404 status code response """
+    """ a handler for 404 errors that returns a JSON-formatted 404 """
     return make_response(jsonify({'error': 'Not found'}), 404)
 
 
