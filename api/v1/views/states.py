@@ -36,6 +36,7 @@ def del_state(state_id):
     if not state:
         abort(404)
     storage.delete(state)
+    storage.save()
     empty_dict = {}
     return jsonify(empty_dict), 200
 
