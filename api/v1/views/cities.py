@@ -4,6 +4,7 @@
 from flask import jsonify, request, abort
 from models import storage
 from models.city import City
+from models.state import State
 from api.v1.views import app_views
 
 
@@ -11,32 +12,31 @@ from api.v1.views import app_views
                  strict_slashes=False)
 def get_all_cities(state_id):
     """ returns list of all City objects linked to a given State """
-    state = storage.get("State", state_id)
+    state = storage.get(State, state_id)
     if state is None:
         abort(404)
     allcities = []
-    cities = storage.all("City").values()
+    cities = storage.all(City).values()
     for city in cities:
         if city.state_id == state_id:
-            allcities.append(city.to_json())
+            allcities.append(city.to_dict())
     return jsonify(allcities)
 
 
 @app_views.route('/cities/<city_id>', methods=['GET'])
 def get_city(city_id):
     """ handles GET method """
-    city = storage.get("City", city_id)
+    city = storage.get(City, city_id)
     if city is None:
         abort(404)
-    city = city.to_json()
-    return jsonify(city)
+    return jsonify(city.to_dict())
 
 
 @app_views.route('/cities/<city_id>', methods=['DELETE'])
 def del_city(city_id):
     """ handles DELETE method """
     empty_dict = {}
-    city = storage.get("City", city_id)
+    city = storage.get(City, city_id)
     if city is None:
         abort(404)
     storage.delete(city)
@@ -48,7 +48,7 @@ def del_city(city_id):
                  strict_slashes=False)
 def add_city(state_id):
     """ handles POST method """
-    state = storage.get("State", state_id)
+    state = storage.get(State, state_id)
     if state is None:
         abort(404)
     data = request.get_json()
@@ -59,14 +59,13 @@ def add_city(state_id):
     city = City(**data)
     city.state_id = state_id
     city.save()
-    city = city.to_json()
-    return jsonify(city), 201
+    return jsonify(city.to_dict()), 201
 
 
 @app_views.route('/cities/<city_id>', methods=['PUT'])
 def edit_city(city_id):
     """ handles PUT method """
-    city = storage.get("City", city_id)
+    city = storage.get(City, city_id)
     if city is None:
         abort(404)
     data = request.get_json()
